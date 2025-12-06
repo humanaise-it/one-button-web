@@ -27,6 +27,7 @@ function Hero() {
             <p>One tap.</p>
             <p>Zero setup.</p>
             <p>Clarity begins.</p>
+            <p>Automation follows.</p>
           </div>
           <button className="hero-cta fade-up delay-3" onClick={scrollToWaitlist}>
             Join the waitlist
