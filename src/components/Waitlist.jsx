@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { createClient } from '@supabase/supabase-js';
 
 const supabase = createClient(
-  'https://oeynuczvtwoorcyvfkxt.supabase.co',
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9leW51Y3p2dHdvb3JjeXZma3h0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQ5OTg3ODcsImV4cCI6MjA4MDU3NDc4N30.lz8zgynUysmKmjA2RA08Y-lULh4U9XlQlsr0vG_rems'
+  import.meta.env.VITE_SUPABASE_URL,
+  import.meta.env.VITE_SUPABASE_ANON_KEY
 );
 
 function Waitlist() {
