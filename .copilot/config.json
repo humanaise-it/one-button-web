@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "ignorePaths": ["node_modules"],
+  "rules": {
+    "style": {
+      "indentation": "2-spaces",
+      "quotes": "double",
+      "semi": true,
+      "maxLineLength": 100
+    },
+    "react": {
+      "preferFunctional": true,
+      "useHooks": true
+    },
+    "naming": {
+      "variable": "camelCase",
+      "component": "PascalCase"
+    }
+  },
+  "behavior": {
+    "askForClarification": true,
+    "followProjectSpec": true,
+    "rejectNonConformingCode": true
+  }
+}
