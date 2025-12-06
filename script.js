@@ -5,6 +5,8 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+let isRecording = false;
+
 function scrollToWaitlist() {
   const waitlistSection = document.getElementById('waitlist');
   if (waitlistSection) {
@@ -22,24 +24,59 @@ function scrollToWaitlist() {
   }
 }
 
-function toggleRecording() {
+function handleMicPress() {
   const micButton = document.getElementById('micButton');
-  const micGlow = document.getElementById('micGlow');
-  const recordingText = document.getElementById('recordingText');
+  const ripple = document.getElementById('ripple');
+  const equalizer = document.getElementById('equalizer');
+  const statusText = document.getElementById('statusText');
 
-  if (micButton && micGlow && recordingText) {
-    const isRecording = micButton.classList.contains('recording');
+  if (!micButton || !ripple || !equalizer || !statusText) return;
 
-    if (isRecording) {
-      micButton.classList.remove('recording');
-      micGlow.classList.remove('active', 'recording');
-      recordingText.classList.remove('visible');
+  micButton.classList.remove('idle', 'pressing', 'recording', 'ended');
+  micButton.classList.add('pressing');
+
+  ripple.classList.remove('active');
+  void ripple.offsetWidth;
+  ripple.classList.add('active');
+
+  setTimeout(() => {
+    if (!isRecording) {
+      startRecording(micButton, equalizer, statusText);
     } else {
-      micButton.classList.add('recording');
-      micGlow.classList.add('active', 'recording');
-      recordingText.classList.add('visible');
+      stopRecording(micButton, equalizer, statusText);
     }
-  }
+    micButton.classList.remove('pressing');
+  }, 80);
+}
+
+function startRecording(micButton, equalizer, statusText) {
+  isRecording = true;
+
+  micButton.classList.remove('idle', 'ended');
+  micButton.classList.add('recording');
+
+  equalizer.classList.add('visible');
+
+  statusText.textContent = 'Listening';
+  statusText.classList.add('listening');
+}
+
+function stopRecording(micButton, equalizer, statusText) {
+  isRecording = false;
+
+  micButton.classList.remove('recording');
+  micButton.classList.add('ended');
+
+  equalizer.classList.remove('visible');
+
+  statusText.classList.remove('listening');
+  statusText.textContent = 'Meeting ended';
+
+  setTimeout(() => {
+    micButton.classList.remove('ended');
+    micButton.classList.add('idle');
+    statusText.textContent = 'Tap to record';
+  }, 2000);
 }
 
 function isValidEmail(email) {
@@ -113,7 +150,11 @@ async function handleWaitlistSubmit(event) {
 document.addEventListener('DOMContentLoaded', function() {
   const micButton = document.getElementById('micButton');
   if (micButton) {
-    micButton.addEventListener('click', toggleRecording);
+    micButton.addEventListener('click', handleMicPress);
+    micButton.addEventListener('touchstart', function(e) {
+      e.preventDefault();
+      handleMicPress();
+    });
   }
 
   const waitlistForm = document.getElementById('waitlistForm');

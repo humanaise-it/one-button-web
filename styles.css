@@ -15,7 +15,7 @@
   --gray-600: #525252;
   --gray-800: #262626;
   --gray-900: #171717;
-  --red: #ef4444;
+  --red: #ff3b30;
   --green: #22c55e;
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
@@ -210,7 +210,7 @@ body {
   background: var(--black);
   border-radius: 45px;
   padding: 14px;
-  box-shadow: var(--shadow-xl);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
   position: relative;
 }
 
@@ -232,116 +232,175 @@ body {
   background: var(--white);
   border-radius: 35px;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 2rem;
   position: relative;
   overflow: hidden;
 }
 
-.phone-label {
-  font-size: 0.938rem;
-  font-weight: 500;
-  color: var(--gray-600);
-  text-align: center;
+.mic-interface {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  padding: 2rem;
 }
 
-.mic-container {
+.mic-button {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: transform 0.2s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+  overflow: visible;
 }
 
-.mic-glow {
-  position: absolute;
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, transparent 70%);
-  opacity: 0;
-  transition: all 0.4s ease;
-}
-
-.mic-glow.active {
-  opacity: 1;
-  animation: glowPulse 2s ease-in-out infinite;
-}
-
-.mic-glow.recording {
-  background: radial-gradient(circle, rgba(239, 68, 68, 0.3) 0%, transparent 70%);
-}
-
-@keyframes glowPulse {
-  0%, 100% {
-    transform: scale(1);
-    opacity: 0.6;
-  }
-  50% {
-    transform: scale(1.1);
-    opacity: 0.8;
-  }
-}
-
-.mic-button {
-  width: 90px;
-  height: 90px;
+.mic-button.idle {
   background: var(--black);
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  position: relative;
-  z-index: 2;
+  color: var(--white);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
 }
 
-.mic-button::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 28px;
-  height: 36px;
-  background: var(--white);
-  border-radius: 14px 14px 0 0;
-  clip-path: polygon(
-    20% 0%, 80% 0%, 80% 60%, 90% 60%, 90% 70%, 10% 70%, 10% 60%, 20% 60%
-  );
-}
-
-.mic-button:hover {
-  transform: scale(1.05);
+.mic-button.pressing {
+  transform: scale(0.95);
 }
 
 .mic-button.recording {
   background: var(--red);
-  box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
-  animation: pulse 1.5s ease-in-out infinite;
+  color: var(--white);
+  animation: heartbeat 1.5s ease-in-out infinite;
 }
 
-@keyframes pulse {
+@keyframes heartbeat {
   0%, 100% {
-    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+    box-shadow: 0 0 0 0 rgba(255, 59, 48, 0.4),
+                0 0 20px rgba(255, 59, 48, 0.2);
   }
   50% {
-    box-shadow: 0 0 0 25px rgba(239, 68, 68, 0);
+    box-shadow: 0 0 0 15px rgba(255, 59, 48, 0),
+                0 0 30px rgba(255, 59, 48, 0.4);
   }
 }
 
-.recording-text {
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: var(--red);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  position: absolute;
-  bottom: 8rem;
+.mic-button.ended {
+  background: var(--black);
+  color: var(--white);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
 }
 
-.recording-text.visible {
+.mic-icon {
+  width: 36px;
+  height: 36px;
+  position: relative;
+  z-index: 2;
+}
+
+.ripple {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ripple.active {
+  animation: rippleExpand 0.6s ease-out forwards;
+}
+
+@keyframes rippleExpand {
+  0% {
+    opacity: 0.6;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(2.5);
+  }
+}
+
+.equalizer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 40px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.equalizer.visible {
   opacity: 1;
+}
+
+.bar {
+  width: 4px;
+  background: var(--black);
+  border-radius: 2px;
+  height: 10px;
+}
+
+.equalizer.visible .bar-1 {
+  animation: barPulse 0.8s ease-in-out infinite;
+}
+
+.equalizer.visible .bar-2 {
+  animation: barPulse 1s ease-in-out infinite 0.2s;
+}
+
+.equalizer.visible .bar-3 {
+  animation: barPulse 0.9s ease-in-out infinite 0.4s;
+}
+
+@keyframes barPulse {
+  0%, 100% {
+    height: 10px;
+  }
+  50% {
+    height: 35px;
+  }
+}
+
+.status-text {
+  font-size: 0.938rem;
+  font-weight: 500;
+  color: var(--gray-600);
+  text-align: center;
+  transition: color 0.3s ease;
+}
+
+.status-text.listening {
+  color: var(--red);
+}
+
+.status-text.listening::after {
+  content: '';
+  animation: dots 1.5s steps(4, end) infinite;
+}
+
+@keyframes dots {
+  0%, 20% {
+    content: '';
+  }
+  40% {
+    content: '.';
+  }
+  60% {
+    content: '..';
+  }
+  80%, 100% {
+    content: '...';
+  }
 }
 
 section {
@@ -699,7 +758,7 @@ section {
 
 .feedback.error {
   color: var(--red);
-  background: rgba(239, 68, 68, 0.1);
+  background: rgba(255, 59, 48, 0.1);
 }
 
 .waitlist-microtext {
@@ -801,13 +860,13 @@ section {
   }
 
   .mic-button {
-    width: 70px;
-    height: 70px;
+    width: 80px;
+    height: 80px;
   }
 
-  .mic-glow {
-    width: 100px;
-    height: 100px;
+  .mic-icon {
+    width: 30px;
+    height: 30px;
   }
 
   .one-tap-flow {
@@ -847,8 +906,13 @@ section {
   }
 
   .mic-button {
-    width: 60px;
-    height: 60px;
+    width: 70px;
+    height: 70px;
+  }
+
+  .mic-icon {
+    width: 26px;
+    height: 26px;
   }
 
   .nav-logo span {
