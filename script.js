@@ -1,15 +1,10 @@
-// Import Supabase client
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
-// Initialize Supabase
 const SUPABASE_URL = 'https://oeynuczvtwoorcyvfkxt.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9leW51Y3p2dHdvb3JjeXZma3h0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQ5OTg3ODcsImV4cCI6MjA4MDU3NDc4N30.lz8zgynUysmKmjA2RA08Y-lULh4U9XlQlsr0vG_rems';
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-/**
- * Scroll smoothly to waitlist section
- */
 function scrollToWaitlist() {
   const waitlistSection = document.getElementById('waitlist');
   if (waitlistSection) {
@@ -27,27 +22,31 @@ function scrollToWaitlist() {
   }
 }
 
-/**
- * Toggle recording state on mic button
- */
 function toggleRecording() {
   const micButton = document.getElementById('micButton');
-  if (micButton) {
-    micButton.classList.toggle('recording');
+  const micGlow = document.getElementById('micGlow');
+  const recordingText = document.getElementById('recordingText');
+
+  if (micButton && micGlow && recordingText) {
+    const isRecording = micButton.classList.contains('recording');
+
+    if (isRecording) {
+      micButton.classList.remove('recording');
+      micGlow.classList.remove('active', 'recording');
+      recordingText.classList.remove('visible');
+    } else {
+      micButton.classList.add('recording');
+      micGlow.classList.add('active', 'recording');
+      recordingText.classList.add('visible');
+    }
   }
 }
 
-/**
- * Validate email format
- */
 function isValidEmail(email) {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email);
 }
 
-/**
- * Show feedback message with animation
- */
 function showFeedback(message, type) {
   const feedback = document.getElementById('feedback');
   if (!feedback) return;
@@ -67,9 +66,6 @@ function showFeedback(message, type) {
   }
 }
 
-/**
- * Handle waitlist form submission
- */
 async function handleWaitlistSubmit(event) {
   event.preventDefault();
 
@@ -114,24 +110,17 @@ async function handleWaitlistSubmit(event) {
   }
 }
 
-/**
- * Initialize all interactions on page load
- */
 document.addEventListener('DOMContentLoaded', function() {
-
-  // Mic button toggle
   const micButton = document.getElementById('micButton');
   if (micButton) {
     micButton.addEventListener('click', toggleRecording);
   }
 
-  // Waitlist form submission
   const waitlistForm = document.getElementById('waitlistForm');
   if (waitlistForm) {
     waitlistForm.addEventListener('submit', handleWaitlistSubmit);
   }
 
-  // Clear error feedback on input
   const emailInput = document.getElementById('emailInput');
   if (emailInput) {
     emailInput.addEventListener('input', function() {
@@ -146,7 +135,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // Add keyboard support for buttons
   const buttons = document.querySelectorAll('button');
   buttons.forEach(button => {
     button.addEventListener('keydown', function(e) {
@@ -156,7 +144,24 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   });
+
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -100px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, observerOptions);
+
+  const animatedElements = document.querySelectorAll('.feature-card, .roadmap-card, .comparison-card');
+  animatedElements.forEach(el => {
+    observer.observe(el);
+  });
 });
 
-// Make scrollToWaitlist globally accessible
 window.scrollToWaitlist = scrollToWaitlist;

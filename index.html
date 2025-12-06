@@ -4,12 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>OneButton — And you decide what happens next with your meeting</title>
+  <title>InOneButton — Meetings Made Effortless</title>
 
-  <meta name="description" content="OneButton is the minimal AI meeting companion. Record, transcribe, summarize, and extract action items — with one button.">
+  <meta name="description" content="One tap. Zero setup. Instant clarity. InOneButton is the simplest meeting companion: transcription, summaries, action items — without bots or configuration.">
 
-  <meta property="og:title" content="OneButton — Minimal meeting intelligence">
-  <meta property="og:description" content="Record, transcribe, summarize, and extract decisions. One button does it all.">
+  <meta property="og:title" content="InOneButton — Meetings Made Effortless">
+  <meta property="og:description" content="One tap. Zero setup. Instant clarity. The world's simplest meeting tool.">
   <meta property="og:image" content="https://images.unsplash.com/photo-1551836022-4c4c79ecde51?q=80&w=1200">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://yourdomain.com">
@@ -23,7 +23,15 @@
   <!-- NAVBAR -->
   <header class="navbar">
     <div class="nav-container">
-      <div class="nav-logo">● OneButton</div>
+      <div class="nav-logo">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="12" r="12" fill="#000000"/>
+          <path d="M12 7C10.9 7 10 7.9 10 9V13C10 14.1 10.9 15 12 15C13.1 15 14 14.1 14 13V9C14 7.9 13.1 7 12 7Z" fill="#FFFFFF"/>
+          <path d="M16 11C16 13.2091 14.2091 15 12 15C9.79086 15 8 13.2091 8 11H7C7 13.7614 9.23858 16 12 16C14.7614 16 17 13.7614 17 11H16Z" fill="#FFFFFF"/>
+          <rect x="11.5" y="16" width="1" height="2" fill="#FFFFFF"/>
+        </svg>
+        <span>InOneButton</span>
+      </div>
       <button class="nav-btn" onclick="scrollToWaitlist()">Join waitlist</button>
     </div>
   </header>
@@ -33,27 +41,35 @@
     <section class="hero">
       <div class="hero-container">
         <div class="hero-left">
-          <h1 class="hero-headline fade-up">OneButton</h1>
-          <p class="hero-subheadline fade-up delay-1">And you decide what happens next with your meeting.</p>
-          <button class="hero-cta fade-up delay-2" onclick="scrollToWaitlist()">Join the waitlist</button>
+          <div class="hero-logo">
+            <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+              <circle cx="40" cy="40" r="40" fill="#FFFFFF"/>
+              <path d="M40 23C36.3 23 33.3 26 33.3 29.7V43.7C33.3 47.4 36.3 50.4 40 50.4C43.7 50.4 46.7 47.4 46.7 43.7V29.7C46.7 26 43.7 23 40 23Z" fill="#000000"/>
+              <path d="M53.3 37C53.3 44.3636 47.3636 50.3 40 50.3C32.6364 50.3 26.7 44.3636 26.7 37H23.3C23.3 46.2045 30.7952 53.7 40 53.7C49.2048 53.7 56.7 46.2045 56.7 37H53.3Z" fill="#000000"/>
+              <rect x="38.3" y="53.7" width="3.4" height="6.7" fill="#000000"/>
+            </svg>
+          </div>
+          <h1 class="hero-headline fade-up">InOneButton</h1>
+          <p class="hero-subheadline fade-up delay-1">Meetings. Made effortless.</p>
+          <div class="hero-microtext fade-up delay-2">
+            <p>One tap.</p>
+            <p>Zero setup.</p>
+            <p>Clarity begins.</p>
+          </div>
+          <button class="hero-cta fade-up delay-3" onclick="scrollToWaitlist()">Join the waitlist</button>
         </div>
 
-        <div class="hero-right fade-up delay-3">
+        <div class="hero-right fade-up delay-4">
           <div class="phone-mockup">
             <div class="phone-frame">
               <div class="phone-notch"></div>
               <div class="phone-screen">
                 <div class="phone-label">Tap to record</div>
-                <button class="mic-button" id="micButton" aria-label="Toggle recording"></button>
-                <div class="wave-line">
-                  <svg width="120" height="30" viewBox="0 0 120 30" fill="none">
-                    <path d="M 0 15 Q 15 5, 30 15 T 60 15 T 90 15 T 120 15"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          stroke-dasharray="4 4"
-                          fill="none"/>
-                  </svg>
+                <div class="mic-container">
+                  <div class="mic-glow" id="micGlow"></div>
+                  <button class="mic-button" id="micButton" aria-label="Toggle recording"></button>
                 </div>
+                <div class="recording-text" id="recordingText">Recording…</div>
               </div>
             </div>
           </div>
@@ -61,123 +77,143 @@
       </div>
     </section>
 
-    <!-- FEATURES SECTION -->
+    <!-- MAGIC BEGINS MESSAGE -->
+    <section class="magic-message">
+      <div class="section-container">
+        <p class="magic-text fade-in">No configuration. No settings.</p>
+        <p class="magic-text-emphasis fade-in delay-1">Press the button — and the magic begins.</p>
+      </div>
+    </section>
+
+    <!-- PROBLEM STATEMENT -->
+    <section class="problem-statement">
+      <div class="section-container">
+        <h2 class="large-statement">Meetings steal focus.<br>Notes steal time.</h2>
+      </div>
+    </section>
+
+    <!-- KEY INSIGHT -->
+    <section class="key-insight">
+      <div class="section-container">
+        <p class="insight-text">Most meetings don't happen on Zoom — they happen in real life.</p>
+      </div>
+    </section>
+
+    <!-- ONE-TAP EXPERIENCE -->
+    <section class="one-tap">
+      <div class="section-container">
+        <h2 class="section-title">One-Tap Experience</h2>
+        <div class="one-tap-flow">
+          <div class="flow-item">Press.</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-item">Record.</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-item">Transcribe.</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-item">Summaries.</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-item">Action items.</div>
+        </div>
+        <p class="one-tap-subtitle">All from one button.</p>
+      </div>
+    </section>
+
+    <!-- PRODUCT DEMO FEATURES -->
     <section class="features">
       <div class="section-container">
-        <h2 class="section-title">What OneButton makes effortless</h2>
         <div class="features-grid">
 
           <div class="feature-card">
             <div class="feature-image">
-              <img src="https://images.unsplash.com/photo-1551836022-4c4c79ecde51?q=80&w=1200" alt="Meeting collaboration">
+              <img src="https://images.unsplash.com/photo-1551836022-4c4c79ecde51?q=80&w=1200" alt="Live meeting transcription in real-time">
             </div>
-            <h3 class="feature-title">Instant transcription</h3>
-            <p class="feature-description">Every word captured in real-time. No delays, no manual notes.</p>
+            <h3 class="feature-title">Live Transcription</h3>
+            <p class="feature-description">Real-time accuracy. No delays.</p>
           </div>
 
           <div class="feature-card">
             <div class="feature-image">
-              <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200" alt="Team collaboration">
+              <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200" alt="AI-generated meeting summaries">
             </div>
-            <h3 class="feature-title">Smart summaries</h3>
-            <p class="feature-description">Key decisions and action items extracted automatically.</p>
+            <h3 class="feature-title">AI Summary</h3>
+            <p class="feature-description">Clear. Structured. Instant.</p>
           </div>
 
           <div class="feature-card">
             <div class="feature-image">
-              <img src="https://images.unsplash.com/photo-1590650046871-62fa814f78e0?q=80&w=1200" alt="Work focus">
+              <img src="https://images.unsplash.com/photo-1590650046871-62fa814f78e0?q=80&w=1200" alt="Automatic action items extraction">
             </div>
-            <h3 class="feature-title">Universal compatibility</h3>
-            <p class="feature-description">Works with any meeting tool. No bots, no integration needed.</p>
+            <h3 class="feature-title">Action Items</h3>
+            <p class="feature-description">Decisions extracted automatically.</p>
           </div>
 
         </div>
       </div>
     </section>
 
-    <!-- USE CASES SECTION -->
-    <section class="use-cases">
-      <div class="section-container">
-        <h2 class="section-title">Who it's for</h2>
-        <div class="use-cases-grid">
-
-          <div class="use-case-card">
-            <div class="use-case-icon">💼</div>
-            <h3 class="use-case-title">Freelancers</h3>
-            <p class="use-case-description">Capture every client detail without missing the conversation flow.</p>
-          </div>
-
-          <div class="use-case-card">
-            <div class="use-case-icon">🌐</div>
-            <h3 class="use-case-title">Remote teams</h3>
-            <p class="use-case-description">Keep everyone aligned with automatic meeting documentation.</p>
-          </div>
-
-          <div class="use-case-card">
-            <div class="use-case-icon">🎯</div>
-            <h3 class="use-case-title">Consultants</h3>
-            <p class="use-case-description">Build better proposals with accurate notes from discovery calls.</p>
-          </div>
-
-          <div class="use-case-card">
-            <div class="use-case-icon">📚</div>
-            <h3 class="use-case-title">Students & researchers</h3>
-            <p class="use-case-description">Focus on learning and discussion, not frantic note-taking.</p>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- WHY IT'S DIFFERENT SECTION -->
+    <!-- WHY DIFFERENT -->
     <section class="why-different">
       <div class="section-container">
-        <h2 class="section-title">Why OneButton is different</h2>
-        <ul class="why-list">
-          <li>
-            <span class="why-bullet">→</span>
-            <span class="why-text">No bots in Zoom, Meet or Teams</span>
-          </li>
-          <li>
-            <span class="why-bullet">→</span>
-            <span class="why-text">Works everywhere – just your device's microphone</span>
-          </li>
-          <li>
-            <span class="why-bullet">→</span>
-            <span class="why-text">Zero setup, zero friction</span>
-          </li>
-          <li>
-            <span class="why-bullet">→</span>
-            <span class="why-text">Instant summaries & action items</span>
-          </li>
-        </ul>
+        <h2 class="section-title">Why InOneButton is different</h2>
+        <div class="comparison-grid">
+          <div class="comparison-card">
+            <div class="comparison-label">Competitors</div>
+            <ul class="comparison-list">
+              <li>bots</li>
+              <li>integrations</li>
+              <li>setup</li>
+              <li>friction</li>
+            </ul>
+          </div>
+          <div class="comparison-card highlight">
+            <div class="comparison-label">InOneButton</div>
+            <ul class="comparison-list">
+              <li>works anywhere</li>
+              <li>no bots</li>
+              <li>no setup</li>
+              <li>instant clarity</li>
+            </ul>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- ROADMAP SECTION -->
+    <!-- MARKET CONTEXT -->
+    <section class="market-context">
+      <div class="section-container">
+        <p class="context-text">AI productivity is exploding.</p>
+        <p class="context-emphasis">What's missing is simplicity.</p>
+      </div>
+    </section>
+
+    <!-- ROADMAP -->
     <section class="roadmap">
       <div class="section-container">
         <h2 class="section-title">Roadmap</h2>
-        <div class="roadmap-timeline">
+        <div class="roadmap-grid">
 
-          <div class="roadmap-item">
-            <div class="roadmap-quarter">Q1</div>
-            <div class="roadmap-milestone">Private beta</div>
+          <div class="roadmap-card">
+            <div class="roadmap-icon">🚀</div>
+            <div class="roadmap-quarter">Q1 2025</div>
+            <div class="roadmap-milestone">Launch & onboarding</div>
           </div>
 
-          <div class="roadmap-item">
-            <div class="roadmap-quarter">Q2</div>
-            <div class="roadmap-milestone">v1 launch</div>
+          <div class="roadmap-card">
+            <div class="roadmap-icon">⚡</div>
+            <div class="roadmap-quarter">Q2 2025</div>
+            <div class="roadmap-milestone">Automations (Slack/Gmail)</div>
           </div>
 
-          <div class="roadmap-item">
-            <div class="roadmap-quarter">Q3</div>
-            <div class="roadmap-milestone">AI improved summaries</div>
+          <div class="roadmap-card">
+            <div class="roadmap-icon">📊</div>
+            <div class="roadmap-quarter">Q3 2025</div>
+            <div class="roadmap-milestone">Team dashboards</div>
           </div>
 
-          <div class="roadmap-item">
-            <div class="roadmap-quarter">Q4</div>
-            <div class="roadmap-milestone">Teams & shared workspaces</div>
+          <div class="roadmap-card">
+            <div class="roadmap-icon">👥</div>
+            <div class="roadmap-quarter">Q4 2025</div>
+            <div class="roadmap-milestone">Shared workspaces</div>
           </div>
 
         </div>
@@ -188,7 +224,7 @@
     <section id="waitlist" class="waitlist">
       <div class="section-container-narrow">
         <h2 class="section-title">Join the waitlist</h2>
-        <p class="waitlist-subtitle">Be among the first to use OneButton.</p>
+        <p class="waitlist-subtitle">Be among the first to experience clarity.</p>
 
         <form class="waitlist-form" id="waitlistForm">
           <input
@@ -203,13 +239,16 @@
         </form>
 
         <div id="feedback" class="feedback" role="status" aria-live="polite"></div>
+
+        <p class="waitlist-microtext">No spam. No noise. Just clarity.</p>
       </div>
     </section>
 
-    <!-- FINAL CTA SECTION -->
-    <section class="final-cta">
+    <!-- FINAL PAYOFF -->
+    <section class="final-payoff">
       <div class="section-container">
-        <h2 class="section-title">Your meetings, simplified.</h2>
+        <h2 class="payoff-title">The world's simplest meeting tool.</h2>
+        <p class="payoff-line">InOneButton — Where clarity begins.</p>
         <button class="cta-btn" onclick="scrollToWaitlist()">Join the waitlist</button>
       </div>
     </section>
@@ -219,7 +258,7 @@
   <!-- FOOTER -->
   <footer class="footer">
     <div class="footer-container">
-      <p class="footer-text">© 2025 OneButton – All rights reserved.</p>
+      <p class="footer-text">© 2025 InOneButton – All rights reserved.</p>
     </div>
   </footer>
 
