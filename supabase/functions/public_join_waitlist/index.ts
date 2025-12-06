@@ -61,9 +61,15 @@ serve(async (req) => {
 
     if (error) {
       if (error.code === "23505") {
-        return new Response(JSON.stringify({ error: "Already on waitlist" }), {
-          status: 409,
-        });
+        return new Response(
+          JSON.stringify({ success: true, duplicate: true }),
+          {
+            headers: {
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Origin": "*",
+            }
+          }
+    );
       }
       return new Response(JSON.stringify({ error: error.message }), {
         status: 400,
