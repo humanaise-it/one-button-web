@@ -533,7 +533,7 @@ section {
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: -0.04em;
-  color: var(--gray-400);
+  color: var(--gray-600);
   max-width: 1000px;
   margin: 0 auto;
 }
