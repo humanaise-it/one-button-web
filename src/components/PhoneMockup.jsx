@@ -48,11 +48,11 @@ function PhoneMockup() {
   };
 
   return (
-    <div className="phone-mockup" onClick={handlePress}>
+    <div className="phone-mockup">
       <div className="phone-frame">
         <div className="phone-notch"></div>
 
-        <div className="phone-screen">
+        <div className="phone-screen" onClick={handlePress}>
           <div className="mic-interface">
 
             <button
