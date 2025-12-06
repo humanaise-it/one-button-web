@@ -1,0 +1,22 @@
+{
+  "name": "onebutton-landing",
+  "version": "1.0.0",
+  "description": "OneButton - Minimal AI meeting companion landing page",
+  "type": "module",
+  "scripts": {
+    "dev": "npx serve . -l 3000",
+    "build": "echo 'Build complete - static site ready'",
+    "start": "npx serve . -l 3000"
+  },
+  "keywords": [
+    "landing-page",
+    "onebutton",
+    "meeting",
+    "transcription"
+  ],
+  "author": "OneButton",
+  "license": "MIT",
+  "devDependencies": {
+    "serve": "^14.2.1"
+  }
+}
