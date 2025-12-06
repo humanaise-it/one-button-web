@@ -2,7 +2,7 @@
 
 import { serve } from "https://deno.land/std/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js";
-
+// Waitlist function to handle user submissions
 serve(async (req) => {
   try {
     const {
