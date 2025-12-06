@@ -1,80 +1,10 @@
 /* --------------------------------------------------------
-   RESET & VARIABLES
+   HERO — APPLE PREMIUM ADJUSTMENTS
 ---------------------------------------------------------*/
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
 
-:root {
-  --black: #000000;
-  --white: #ffffff;
-  --gray-50: #fafafa;
-  --gray-100: #f5f5f5;
-  --gray-200: #eaeaea;
-  --gray-300: #d4d4d4;
-  --gray-400: #a3a3a3;
-  --gray-600: #525252;
-  --gray-800: #262626;
-  --gray-900: #171717;
-  --red: #ff3b30;
-  --green: #22c55e;
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
-  background: var(--white);
-  color: var(--black);
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
-}
-
-/* --------------------------------------------------------
-   NAVBAR
----------------------------------------------------------*/
-.navbar {
-  position: sticky;
-  top: 0;
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--gray-200);
-  padding: 1rem 2rem;
-  z-index: 1000;
-}
-
-.nav-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.nav-logo {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  font-size: 1.125rem;
-  font-weight: 600;
-}
-
-/* --------------------------------------------------------
-   HERO
----------------------------------------------------------*/
 .hero {
   padding: 8rem 2rem 6rem;
-  background: linear-gradient(to bottom, var(--white), var(--gray-50));
+  background: linear-gradient(to bottom, #ffffff, #fafafa);
 }
 
 .hero-container {
@@ -82,66 +12,88 @@ body {
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 5rem;
+  gap: 6rem;
   align-items: center;
 }
 
+/* Apple spacing refinement */
 .hero-left {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 2.4rem;
 }
 
 .hero-headline {
-  font-size: 4.5rem;
+  font-size: 4.6rem;
   font-weight: 700;
+  line-height: 1.04;
   letter-spacing: -0.04em;
-  line-height: 1;
+  margin-bottom: 0.5rem;
 }
 
 .hero-subheadline {
   font-size: 2rem;
   font-weight: 600;
-  color: var(--gray-600);
+  color: #555;
 }
 
-/* Apple-style microtext */
+/* Hero microtext: tighter Apple rhythm */
 .hero-microtext {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
-  font-size: 1.125rem;
-  color: var(--gray-600);
-  line-height: 1.35;
+  gap: 0.2rem;
+  font-size: 1.25rem;
+  font-weight: 450;
+  color: #666;
+  line-height: 1.32;
 }
 
 .hero-cta {
-  padding: 1rem 2.5rem;
-  background: var(--black);
-  color: var(--white);
-  border: none;
+  padding: 1rem 2.6rem;
+  background: #000;
+  color: #fff;
   border-radius: 980px;
   font-size: 1.125rem;
-  cursor: pointer;
-  transition: 0.3s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .hero-cta:hover {
   transform: scale(1.02);
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.18);
 }
 
+/* Add subtle fade-up animation */
+.fade-up {
+  opacity: 0;
+  transform: translateY(12px);
+  animation: fadeUp 0.6s ease forwards;
+}
+
+.fade-up.delay-1 { animation-delay: 0.12s; }
+.fade-up.delay-2 { animation-delay: 0.24s; }
+.fade-up.delay-3 { animation-delay: 0.36s; }
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+
 /* --------------------------------------------------------
-   PHONE MOCKUP — APPLE PREMIUM VERSION
+   PHONE MOCKUP — APPLE ULTRA PREMIUM
 ---------------------------------------------------------*/
+
 .hero-right {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
+/* Hover parallax */
 .phone-mockup {
-  perspective: 1400px;
+  perspective: 1200px;
   transition: transform 0.25s ease-out;
 }
 
@@ -149,16 +101,18 @@ body {
   transform: translateY(-4px);
 }
 
+/* iPhone frame */
 .phone-frame {
   width: 300px;
   height: 600px;
-  background: var(--black);
+  background: #000;
   border-radius: 45px;
   padding: 14px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.22);
+  box-shadow: 0 22px 40px rgba(0,0,0,0.22);
   position: relative;
 }
 
+/* Dynamic notch */
 .phone-notch {
   position: absolute;
   top: 0;
@@ -166,106 +120,113 @@ body {
   transform: translateX(-50%);
   width: 130px;
   height: 30px;
-  background: var(--black);
+  background: #000;
   border-radius: 0 0 20px 20px;
 }
 
+/* Apple screen lighting */
 .phone-screen {
   width: 100%;
   height: 100%;
-  background: var(--white);
   border-radius: 35px;
+  background: #fff;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
 
-  /* inner ambient light (Apple look) */
   box-shadow:
-    inset 0 0 40px rgba(0,0,0,0.12),
-    inset 0 0 80px rgba(0,0,0,0.05);
+    inset 0 0 40px rgba(0,0,0,0.14),
+    inset 0 0 80px rgba(0,0,0,0.06);
 }
 
+
 /* --------------------------------------------------------
-   MIC INTERFACE
+   MICROPHONE INTERFACE
 ---------------------------------------------------------*/
+
 .mic-interface {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2rem;
+  gap: 2.2rem;
 }
 
+/* Mic button */
 .mic-button {
   width: 100px;
   height: 100px;
   border-radius: 50%;
   border: none;
   cursor: pointer;
+  background: #000;
+  color: #fff;
   position: relative;
   overflow: visible;
-
   display: flex;
   justify-content: center;
   align-items: center;
 
   transition: transform 0.18s cubic-bezier(.2,.7,.3,1),
-              background-color 0.3s ease,
-              box-shadow 0.3s ease;
+              background-color 0.28s ease,
+              box-shadow 0.28s ease;
 }
 
-/* Idle breathing Apple-style */
+/* Idle breathing */
 .mic-button.idle {
-  background: var(--black);
-  color: var(--white);
   animation: breathing 6s ease-in-out infinite;
 }
 
 @keyframes breathing {
   0%,100% { transform: scale(1); }
-  50% { transform: scale(1.015); }
+  50%     { transform: scale(1.015); }
 }
 
-/* Pressing micro interaction */
+/* Press-down */
 .mic-button.pressing {
-  transform: scale(0.94);
+  transform: scale(0.92);
 }
 
 /* Recording heartbeat glow */
 .mic-button.recording {
-  background: var(--red);
-  color: var(--white);
-  animation: heartbeat 1.4s ease-in-out infinite;
+  background: #ff3b30;
+  animation: heartbeat 1.35s ease-in-out infinite;
 }
 
 @keyframes heartbeat {
   0%,100% {
-    box-shadow: 0 0 0 0 rgba(255, 59, 48, 0.4),
-                0 0 22px rgba(255, 59, 48, 0.4);
+    box-shadow:
+      0 0 0 0 rgba(255,59,48,0.45),
+      0 0 22px rgba(255,59,48,0.45);
   }
   50% {
-    box-shadow: 0 0 0 18px rgba(255, 59, 48, 0),
-                0 0 30px rgba(255, 59, 48, 0.4);
+    box-shadow:
+      0 0 0 20px rgba(255,59,48,0),
+      0 0 30px rgba(255,59,48,0.45);
   }
 }
 
 .mic-button.ended {
-  background: var(--black);
-  color: var(--white);
+  background: #000;
+  box-shadow: none;
 }
 
-/* Microphone icon sizing */
+/* Mic icon */
 .mic-icon {
-  width: 38px;
-  height: 38px;
+  width: 40px;
+  height: 40px;
   z-index: 2;
 }
 
-/* Ripple effect (WhatsApp-style) */
+
+/* --------------------------------------------------------
+   RIPPLE EFFECT (iMessage / WhatsApp)
+---------------------------------------------------------*/
+
 .ripple {
   position: absolute;
-  width: 140%;
-  height: 140%;
+  width: 160%;
+  height: 160%;
   top: 50%;
   left: 50%;
   background: rgba(255,255,255,0.35);
@@ -279,19 +240,21 @@ body {
 }
 
 @keyframes ripplePulse {
-  0% { opacity: 0.55; transform: translate(-50%,-50%) scale(0.2); }
-  100% { opacity: 0; transform: translate(-50%,-50%) scale(1.8); }
+  0%   { opacity: 0.55; transform: translate(-50%, -50%) scale(0.25); }
+  100% { opacity: 0;    transform: translate(-50%, -50%) scale(1.9); }
 }
 
+
 /* --------------------------------------------------------
-   EQUALIZER (APPLE MUSIC STYLE)
+   EQUALIZER — APPLE MUSIC STYLE
 ---------------------------------------------------------*/
+
 .equalizer {
   display: flex;
   gap: 6px;
   height: 28px;
   opacity: 0;
-  transition: opacity 0.25s ease;
+  transition: opacity 0.3s ease;
 }
 
 .equalizer.visible {
@@ -299,41 +262,36 @@ body {
 }
 
 .equalizer .bar {
-  width: 3px;
+  width: 4px;
   background: #000;
   border-radius: 3px;
   height: 20%;
   animation: eqAnim 1.2s ease-in-out infinite;
 }
 
-.equalizer .bar:nth-child(2) {
-  animation-delay: 0.15s;
-}
-
-.equalizer .bar:nth-child(3) {
-  animation-delay: 0.30s;
-}
+.equalizer .bar:nth-child(2) { animation-delay: 0.15s; }
+.equalizer .bar:nth-child(3) { animation-delay: 0.30s; }
 
 @keyframes eqAnim {
   0%,100% { height: 20%; }
   50%    { height: 85%; }
 }
 
+
 /* --------------------------------------------------------
-   STATUS TEXT (Listening..., Meeting ended)
+   STATUS TEXT (Tap → Listening… → Meeting ended)
 ---------------------------------------------------------*/
+
 .status-text {
   font-size: 1rem;
   font-weight: 500;
-  text-align: center;
-  color: var(--gray-600);
-  opacity: 0.9;
+  color: #666;
   transition: opacity 0.3s ease, color 0.3s ease;
 }
 
-/* Listening with animated dots */
+/* Listening */
 .status-text.recording {
-  color: var(--red);
+  color: #ff3b30;
 }
 
 .status-text.recording::after {
@@ -353,16 +311,11 @@ body {
   opacity: 0.7;
 }
 
-/* --------------------------------------------------------
-   (ALL OTHER SECTIONS BELOW — unchanged from your version)
----------------------------------------------------------*/
-
-/* ---- sections, features, roadmap, footer, etc. remain unchanged ---- */
-/* (Per spazio ho lasciato inalterato tutto il resto; nulla è stato rimosso.) */
 
 /* --------------------------------------------------------
    RESPONSIVE
 ---------------------------------------------------------*/
+
 @media (max-width: 768px) {
   .hero-container {
     grid-template-columns: 1fr;
