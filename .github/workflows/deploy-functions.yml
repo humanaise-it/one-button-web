@@ -20,22 +20,23 @@ jobs:
           curl -sL https://github.com/supabase/cli/releases/latest/download/supabase_linux_amd64.tar.gz \
             | tar -xz -C /usr/local/bin
 
-      - name: Link Supabase Project
-        env:
-          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
-        run: supabase link --project-ref ${{ secrets.SUPABASE_PROJECT_ID }}
+      - name: Supabase login
+        run: supabase login --token ${{ secrets.SUPABASE_ACCESS_TOKEN }}
 
-      - name: Deploy functions (webhook no-verify-jwt)
+      - name: Link project
+        run: supabase link --project-ref "${{ secrets.SUPABASE_PROJECT_ID }}"
+
+      - name: Deploy functions (public_* with no-verify-jwt)
         run: |
-          echo "Deploying Supabase functions. 'webhook' will use --no-verify-jwt"
+          echo "Deploying Supabase functions. Functions starting with 'public_' will use --no-verify-jwt"
           for fn in supabase/functions/*; do
             if [ -d "$fn" ]; then
               name=$(basename "$fn")
-              if [ "$name" = "webhook" ] || [ "$name" = "join_waitlist" ]; then
+              if [[ "$name" == public_* ]]; then
                 echo "-> Deploying function: $name (no-verify-jwt)"
                 supabase functions deploy "$name" --no-verify-jwt
               else
-                echo "-> Deploying function: $name"
+                echo "-> Deploying function: $name (with JWT verification)"
                 supabase functions deploy "$name"
               fi
             fi
