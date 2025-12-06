@@ -20,11 +20,12 @@ jobs:
           curl -sL https://github.com/supabase/cli/releases/latest/download/supabase_linux_amd64.tar.gz \
             | tar -xz -C /usr/local/bin
 
-
-      - name: Link project
+      - name: Link Supabase Project
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
         run: supabase link --project-ref ${{ secrets.SUPABASE_PROJECT_ID }}
 
       - name: Deploy Waitlist Function
-        run: npx supabase functions deploy join_waitlist --project-ref $SUPABASE_PROJECT_REF
         env:
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+        run: supabase functions deploy join_waitlist --project-ref ${{ secrets.SUPABASE_PROJECT_ID }}
