@@ -129,7 +129,9 @@ body {
   font-weight: 400;
   color: var(--gray-600);
 }
-
+.hero-microtext p {
+  line-height: 1.6;
+}
 .hero-cta {
   background: var(--black);
   color: var(--white);
