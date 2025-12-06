@@ -4,9 +4,9 @@
   "description": "OneButton - Minimal AI meeting companion landing page",
   "type": "module",
   "scripts": {
-    "dev": "npx serve . -l 3000",
-    "build": "echo 'Build complete - static site ready'",
-    "start": "npx serve . -l 3000"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "keywords": [
     "landing-page",
@@ -16,7 +16,15 @@
   ],
   "author": "OneButton",
   "license": "MIT",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
   "devDependencies": {
-    "serve": "^14.2.1"
+    "@types/react": "^18.2.43",
+    "@types/react-dom": "^18.2.17",
+    "@vitejs/plugin-react": "^4.2.1",
+    "vite": "^5.0.8"
   }
 }
