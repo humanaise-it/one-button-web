@@ -119,67 +119,77 @@ function PhoneMockup() {
     // Play start sound
     startSound.play().catch(e => console.log('Audio play failed:', e));
   };
-
+  
   const stopRecording = () => {
     setState('ended');
     clearTimeout(intervalRef.current);
+
     // Play stop sound
     stopSound.play().catch(e => console.log('Audio play failed:', e));
-    
-    // NEW SEQUENCE:
-    // BOTTOM (app notifications - badges):
-    // 1. "Your summary is being generated" (0.4s start, 3s duration)
+
+    //
+    // ──────────────────────────────────────────────────────────────
+    //  BOTTOM NOTIFICATIONS (toast + badges) — lasciate come erano
+    // ──────────────────────────────────────────────────────────────
+    //
+
+    // 1. VisionOS toast (0.4s)
     setTimeout(() => {
       setShowVisionToast(true);
-      visionSound.play().catch(e => console.log('Audio play failed:', e));
-      setTimeout(() => {
-        setShowVisionToast(false);
-      }, 3000);
+      visionSound.play().catch(e => console.log("Audio play failed:", e));
+      setTimeout(() => setShowVisionToast(false), 3000);
     }, 400);
 
-    // 2. Email badge (3.6s start, 3s duration)
+    // 2. Email badge (3.6s)
     setTimeout(() => {
       setShowEmailBadge(true);
-      tickSound.play().catch(e => console.log('Audio play failed:', e));
-      setTimeout(() => {
-        setShowEmailBadge(false);
-      }, 3000);
+      tickSound.play().catch(e => console.log("Audio play failed:", e));
+      setTimeout(() => setShowEmailBadge(false), 3000);
     }, 3600);
 
-    // 3. Slack badge (6.8s start, 3s duration)
+    // 3. Slack badge (6.8s)
     setTimeout(() => {
       setShowSlackBadge(true);
-      tickSound.play().catch(e => console.log('Audio play failed:', e));
-      setTimeout(() => {
-        setShowSlackBadge(false);
-      }, 3000);
+      tickSound.play().catch(e => console.log("Audio play failed:", e));
+      setTimeout(() => setShowSlackBadge(false), 3000);
     }, 6800);
 
-    // TOP (phone notifications):
-    // 4. Email notification (10s start, 3s duration - stays until Slack appears)
+    //
+    // ──────────────────────────────────────────────────────────────
+    //  TOP IPHONE-STYLE NOTIFICATION SEQUENCE (Email → Slack → fade)
+    // ──────────────────────────────────────────────────────────────
+    //
+
+    // 4. EMAIL enters (top) at 10.0s
     setTimeout(() => {
       setShowEmailNotif(true);
-      emailSound.play().catch(e => console.log('Audio play failed:', e));
-      setTimeout(() => {
-        setShowEmailNotif(false);
-      }, 3000);
+      emailSound.play().catch(e => console.log("Audio play failed:", e));
     }, 10000);
 
-    // 5. Slack notification (10.2s start, 4s duration - appears below, then moves up)
+    // 5. SLACK enters BELOW Email at 11.0s
     setTimeout(() => {
       setShowSlackNotif(true);
-      slackSound.play().catch(e => console.log('Audio play failed:', e));
-      setTimeout(() => {
-        setShowSlackNotif(false);
-        // Reset to idle after all animations (~14.5s total)
-        setTimeout(() => {
-          setTranscript([]);
-          setAnimOffset(0);
-          setState('idle');
-        }, 500);
-      }, 4000);
-    }, 10200);
+      slackSound.play().catch(e => console.log("Audio play failed:", e));
+    }, 11000);
+
+    // 6. EMAIL fades out at 13.0s → Slack automatically moves into its position
+    setTimeout(() => {
+      setShowEmailNotif(false);
+    }, 13000);
+
+    // 7. SLACK fades out at 15.0s
+    setTimeout(() => {
+      setShowSlackNotif(false);
+    }, 15000);
+
+    // 8. Reset UI to idle
+    setTimeout(() => {
+      setTranscript([]);
+      setAnimOffset(0);
+      setState("idle");
+    }, 15500);
   };
+
 
   // Cleanup notification timer
   useEffect(() => {
