@@ -6,7 +6,7 @@ function MagicMessage() {
       <div className="section-container">
         <p className="magic-text fade-in">No configuration. No settings.</p>
         <p className="magic-text-emphasis fade-in delay-1">Press the button — and the magic begins.</p>
-        <p className="magic-text-emphasis fade-in delay-2">First it listens. Then automations take over.</p>
+        <p className="magic-text-emphasis fade-in delay-1">First it listens. Then automations take over.</p>
       </div>
     </section>
   );
