@@ -1,9 +1,15 @@
-/**
- * OneButton Landing Page - Interactive JavaScript
- * Handles smooth scrolling and waitlist form submission
- */
+// Import Supabase client
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
-// Smooth scroll to waitlist section
+// Initialize Supabase
+const SUPABASE_URL = 'https://dasfryojsgssxkqxudzv.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRhc2ZyeW9qc2dzc3hrcXh1ZHp2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQ5NzExNzgsImV4cCI6MjA4MDU0NzE3OH0.D1OmUnSVQcTTUW93Tz_AufEYSigP5CfNlWaG5hhBlws';
+
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+/**
+ * Scroll smoothly to waitlist section
+ */
 function scrollToWaitlist() {
   const waitlistSection = document.getElementById('waitlist');
   if (waitlistSection) {
@@ -12,7 +18,6 @@ function scrollToWaitlist() {
       block: 'start'
     });
 
-    // Focus on email input after scrolling
     setTimeout(() => {
       const emailInput = document.getElementById('emailInput');
       if (emailInput) {
@@ -22,128 +27,127 @@ function scrollToWaitlist() {
   }
 }
 
-// Handle waitlist form submission
-function joinWaitlist(event) {
-  event.preventDefault();
-
-  const emailInput = document.getElementById('emailInput');
-  const feedback = document.getElementById('feedback');
-  const email = emailInput.value.trim();
-
-  // Email validation regex
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-  // Validation checks
-  if (!email) {
-    showFeedback(feedback, 'Inserisci la tua email per continuare.', 'error');
-    return;
+/**
+ * Toggle recording state on mic button
+ */
+function toggleRecording() {
+  const micButton = document.getElementById('micButton');
+  if (micButton) {
+    micButton.classList.toggle('recording');
   }
-
-  if (!emailRegex.test(email)) {
-    showFeedback(feedback, 'Inserisci un indirizzo email valido.', 'error');
-    return;
-  }
-
-  // Simulate successful submission
-  // In production, this would send data to your backend API
-  showFeedback(
-    feedback,
-    '✓ Perfetto! Sei nella lista d\'attesa. Controlla la tua inbox.',
-    'success'
-  );
-
-  // Clear input field after successful submission
-  emailInput.value = '';
-
-  // Optional: Track conversion with analytics
-  // trackWaitlistSignup(email);
-
-  // Optional: Send to backend
-  // sendToBackend(email);
 }
 
-// Show feedback message with appropriate styling
-function showFeedback(feedbackElement, message, type) {
-  feedbackElement.textContent = message;
-  feedbackElement.style.color = type === 'success' ? '#4ade80' : '#f87171';
-  feedbackElement.style.fontWeight = '600';
+/**
+ * Validate email format
+ */
+function isValidEmail(email) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+}
 
-  // Auto-clear success messages after 5 seconds
+/**
+ * Show feedback message with animation
+ */
+function showFeedback(message, type) {
+  const feedback = document.getElementById('feedback');
+  if (!feedback) return;
+
+  feedback.textContent = message;
+  feedback.className = `feedback ${type}`;
+  feedback.style.opacity = '1';
+
   if (type === 'success') {
     setTimeout(() => {
-      feedbackElement.textContent = '';
+      feedback.style.opacity = '0';
+      setTimeout(() => {
+        feedback.textContent = '';
+        feedback.className = 'feedback';
+      }, 300);
     }, 5000);
   }
 }
 
-// Optional: Function to send email to backend API
-// Uncomment and configure when ready to integrate with your backend
-/*
-async function sendToBackend(email) {
+/**
+ * Handle waitlist form submission
+ */
+async function handleWaitlistSubmit(event) {
+  event.preventDefault();
+
+  const emailInput = document.getElementById('emailInput');
+  const submitBtn = event.target.querySelector('.submit-btn');
+  const email = emailInput.value.trim();
+
+  if (!email) {
+    showFeedback('Please enter your email address.', 'error');
+    return;
+  }
+
+  if (!isValidEmail(email)) {
+    showFeedback('Please enter a valid email address.', 'error');
+    return;
+  }
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Joining...';
+
   try {
-    const response = await fetch('/api/waitlist', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: email,
-        source: 'landing_page',
-        timestamp: new Date().toISOString()
-      }),
-    });
+    const { data, error } = await supabase
+      .from('waitlist')
+      .insert([{ email, source: 'landing' }]);
 
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
+    if (error) {
+      if (error.code === '23505') {
+        showFeedback('You are already on the waitlist.', 'error');
+      } else {
+        showFeedback('Something went wrong. Please try again.', 'error');
+      }
+    } else {
+      showFeedback('Success! You are on the waitlist.', 'success');
+      emailInput.value = '';
     }
-
-    const data = await response.json();
-    console.log('Waitlist signup successful:', data);
-
-    // Optional: trigger conversion tracking
-    if (typeof gtag !== 'undefined') {
-      gtag('event', 'conversion', {
-        'send_to': 'YOUR_CONVERSION_ID',
-        'value': 1.0,
-        'currency': 'EUR'
-      });
-    }
-
-  } catch (error) {
-    console.error('Error submitting to waitlist:', error);
-    showFeedback(
-      document.getElementById('feedback'),
-      'Si è verificato un errore. Riprova tra poco.',
-      'error'
-    );
+  } catch (err) {
+    console.error('Error submitting to waitlist:', err);
+    showFeedback('Network error. Please try again.', 'error');
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Join waitlist';
   }
 }
-*/
 
-// Optional: Analytics tracking function
-/*
-function trackWaitlistSignup(email) {
-  // Google Analytics 4
-  if (typeof gtag !== 'undefined') {
-    gtag('event', 'generate_lead', {
-      'event_category': 'Waitlist',
-      'event_label': 'Email Signup',
-      'value': email
-    });
-  }
-
-  // Facebook Pixel
-  if (typeof fbq !== 'undefined') {
-    fbq('track', 'Lead');
-  }
-}
-*/
-
-// Initialize page interactions on load
+/**
+ * Initialize all interactions on page load
+ */
 document.addEventListener('DOMContentLoaded', function() {
 
-  // Add keyboard navigation support for CTA buttons
-  const buttons = document.querySelectorAll('.btn');
+  // Mic button toggle
+  const micButton = document.getElementById('micButton');
+  if (micButton) {
+    micButton.addEventListener('click', toggleRecording);
+  }
+
+  // Waitlist form submission
+  const waitlistForm = document.getElementById('waitlistForm');
+  if (waitlistForm) {
+    waitlistForm.addEventListener('submit', handleWaitlistSubmit);
+  }
+
+  // Clear error feedback on input
+  const emailInput = document.getElementById('emailInput');
+  if (emailInput) {
+    emailInput.addEventListener('input', function() {
+      const feedback = document.getElementById('feedback');
+      if (feedback && feedback.classList.contains('error')) {
+        feedback.style.opacity = '0';
+        setTimeout(() => {
+          feedback.textContent = '';
+          feedback.className = 'feedback';
+        }, 300);
+      }
+    });
+  }
+
+  // Add keyboard support for buttons
+  const buttons = document.querySelectorAll('button');
   buttons.forEach(button => {
     button.addEventListener('keydown', function(e) {
       if (e.key === 'Enter' || e.key === ' ') {
@@ -152,73 +156,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   });
-
-  // Enhance email input accessibility
-  const emailInput = document.getElementById('emailInput');
-  if (emailInput) {
-    // Auto-trim on blur
-    emailInput.addEventListener('blur', function() {
-      this.value = this.value.trim();
-    });
-
-    // Submit on Enter key
-    emailInput.addEventListener('keypress', function(e) {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        const form = this.closest('form');
-        if (form) {
-          form.dispatchEvent(new Event('submit'));
-        }
-      }
-    });
-
-    // Clear error feedback on new input
-    emailInput.addEventListener('input', function() {
-      const feedback = document.getElementById('feedback');
-      if (feedback && feedback.textContent && feedback.style.color === 'rgb(248, 113, 113)') {
-        feedback.textContent = '';
-      }
-    });
-  }
-
-  // Add smooth scroll to "Come funziona" link if exists
-  const scrollLinks = document.querySelectorAll('a[href^="#"]');
-  scrollLinks.forEach(link => {
-    link.addEventListener('click', function(e) {
-      const targetId = this.getAttribute('href').substring(1);
-      const targetElement = document.getElementById(targetId);
-
-      if (targetElement) {
-        e.preventDefault();
-        targetElement.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
-        });
-      }
-    });
-  });
-
-  // Intersection Observer for fade-in animations (optional enhancement)
-  const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-  };
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateY(0)';
-      }
-    });
-  }, observerOptions);
-
-  // Observe feature blocks and benefit cards for animation
-  const animatedElements = document.querySelectorAll('.feature-block, .benefit-card');
-  animatedElements.forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(20px)';
-    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-    observer.observe(el);
-  });
 });
+
+// Make scrollToWaitlist globally accessible
+window.scrollToWaitlist = scrollToWaitlist;

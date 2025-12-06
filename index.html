@@ -1,251 +1,225 @@
 <!DOCTYPE html>
-<html lang="it">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>OneButton – Trascrizione e riassunti automatici con un solo bottone</title>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="description" content="OneButton registra, trascrive e riassume automaticamente le tue riunioni. Nessun bot, nessuna configurazione. Premi un bottone e ottieni chiarezza immediata.">
-    <meta name="keywords" content="trascrizione riunioni, AI meeting assistant, riassunto automatico, meeting minutes, action items, app per riunioni">
-    <meta name="author" content="Humanaise">
+  <title>OneButton — And you decide what happens next with your meeting</title>
 
-    <!-- Open Graph -->
-    <meta property="og:title" content="OneButton – Meetings made effortless">
-    <meta property="og:description" content="Registra, trascrivi e ottieni azioni automatiche dalle tue riunioni. Tutto con un solo bottone.">
-    <meta property="og:image" content="https://images.unsplash.com/photo-1551836022-4c4c79ecde51?q=80&w=1400">
-    <meta property="og:url" content="https://yourdomain.com">
-    <meta property="og:type" content="website">
+  <meta name="description" content="OneButton is the minimal AI meeting companion. Record, transcribe, summarize, and extract action items — with one button.">
 
-    <!-- Canonical -->
-    <link rel="canonical" href="https://yourdomain.com">
+  <meta property="og:title" content="OneButton — Minimal meeting intelligence">
+  <meta property="og:description" content="Record, transcribe, summarize, and extract decisions. One button does it all.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1551836022-4c4c79ecde51?q=80&w=1200">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://yourdomain.com">
 
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <section class="usecases">
-    <h2>Dove usare OneButton</h2>
-    <div class="usecases-grid">
+  <link rel="canonical" href="https://yourdomain.com">
 
-      <div class="uc-item">
-        <h3>💼 Meeting di lavoro</h3>
-        <p>Daily, planning, retro: niente più appunti, solo il flusso della conversazione.</p>
-      </div>
-
-      <div class="uc-item">
-        <h3>🤝 Call con clienti</h3>
-        <p>Trascrizione accurata e punti chiave sempre pronti da condividere.</p>
-      </div>
-
-      <div class="uc-item">
-        <h3>📞 Interviste & recruiting</h3>
-        <p>Registra automaticamente domande, risposte e valutazioni.</p>
-      </div>
-
-      <div class="uc-item">
-        <h3>🎓 Lezioni & workshop</h3>
-        <p>Segui il contenuto senza perdere dettagli importanti.</p>
-      </div>
-
-    </div>
-  </section>
-  <section class="why">
-    <h2>Perché OneButton è diverso</h2>
-    <ul class="why-list">
-      <li>🚫 Nessun bot da installare su Zoom, Meet o Teams</li>
-      <li>🎙 Funziona ovunque: basta il microfono del tuo device</li>
-      <li>⚡️ Zero setup: apri, premi, parla</li>
-      <li>🧠 Riassunti e azioni generate automaticamente</li>
-    </ul>
-  </section>
-
-
+  <link rel="stylesheet" href="styles.css">
+</head>
 <body>
 
   <!-- NAVBAR -->
   <header class="navbar">
     <div class="nav-container">
-      <div class="nav-logo">OneButton</div>
-      <a href="mailto:hello@onebutton.app" class="nav-link">Contattaci</a>
+      <div class="nav-logo">● OneButton</div>
+      <button class="nav-btn" onclick="scrollToWaitlist()">Join waitlist</button>
     </div>
   </header>
 
   <!-- HERO SECTION -->
   <main>
     <section class="hero">
-      <div class="container">
-        <div class="hero-content">
-          <h1 class="hero-title">
-            Premi un pulsante.<br>
-            Trascrivi tutto.<br>
-            In tempo reale.
-          </h1>
-          <p class="hero-subtitle">
-            Passi ore in riunione ma perdi i dettagli importanti? OneButton ascolta, trascrive e genera automatizzazioni mentre parli. <strong>Zero configurazione. Zero appunti manuali. Solo parlare.</strong>
-          </p>
-
-          <div class="hero-cta">
-            <button class="btn btn-primary" onclick="scrollToWaitlist()">
-              Unisciti alla lista d'attesa
-            </button>
-            <p class="cta-note">Niente spam. Puoi disiscriverti quando vuoi.</p>
-          </div>
+      <div class="hero-container">
+        <div class="hero-left">
+          <h1 class="hero-headline fade-up">OneButton</h1>
+          <p class="hero-subheadline fade-up delay-1">And you decide what happens next with your meeting.</p>
+          <button class="hero-cta fade-up delay-2" onclick="scrollToWaitlist()">Join the waitlist</button>
         </div>
 
-        <div class="hero-image">
-          <img
-            src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1200&auto=format&fit=crop"
-            alt="Team in riunione collaborativa"
-          />
+        <div class="hero-right fade-up delay-3">
+          <div class="phone-mockup">
+            <div class="phone-frame">
+              <div class="phone-notch"></div>
+              <div class="phone-screen">
+                <div class="phone-label">Tap to record</div>
+                <button class="mic-button" id="micButton" aria-label="Toggle recording"></button>
+                <div class="wave-line">
+                  <svg width="120" height="30" viewBox="0 0 120 30" fill="none">
+                    <path d="M 0 15 Q 15 5, 30 15 T 60 15 T 90 15 T 120 15"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-dasharray="4 4"
+                          fill="none"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- FEATURES / EXPLAINER SECTION -->
+    <!-- FEATURES SECTION -->
     <section class="features">
-      <div class="container">
-        <h2 class="section-title">Come funziona OneButton</h2>
-        <p class="section-subtitle">Tre passi. Un pulsante. Zero sforzo.</p>
+      <div class="section-container">
+        <h2 class="section-title">What OneButton makes effortless</h2>
+        <div class="features-grid">
 
-        <div class="feature-grid">
-          <div class="feature-block">
+          <div class="feature-card">
             <div class="feature-image">
-              <img
-                src="https://images.unsplash.com/photo-1551836022-deb4988cc6c0?q=80&w=800&auto=format&fit=crop"
-                alt="Persona che avvia una riunione"
-              />
+              <img src="https://images.unsplash.com/photo-1551836022-4c4c79ecde51?q=80&w=1200" alt="Meeting collaboration">
             </div>
-            <h3 class="feature-title">1. Premi play</h3>
-            <p class="feature-description">
-              Apri OneButton e premi un pulsante. La registrazione parte subito. Nessuna configurazione, nessun setup.
-            </p>
+            <h3 class="feature-title">Instant transcription</h3>
+            <p class="feature-description">Every word captured in real-time. No delays, no manual notes.</p>
           </div>
 
-          <div class="feature-block">
+          <div class="feature-card">
             <div class="feature-image">
-              <img
-                src="https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?q=80&w=800&auto=format&fit=crop"
-                alt="Persona concentrata in videoconferenza"
-              />
+              <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200" alt="Team collaboration">
             </div>
-            <h3 class="feature-title">2. Parla liberamente</h3>
-            <p class="feature-description">
-              Mentre parli, OneButton trascrive tutto in tempo reale. Chi dice cosa. Diarizzato. Preciso. Live.
-            </p>
+            <h3 class="feature-title">Smart summaries</h3>
+            <p class="feature-description">Key decisions and action items extracted automatically.</p>
           </div>
 
-          <div class="feature-block">
+          <div class="feature-card">
             <div class="feature-image">
-              <img
-                src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop"
-                alt="Dashboard con dati e report"
-              />
+              <img src="https://images.unsplash.com/photo-1590650046871-62fa814f78e0?q=80&w=1200" alt="Work focus">
             </div>
-            <h3 class="feature-title">3. Ricevi le automatizzazioni</h3>
-            <p class="feature-description">
-              Trascrizione completa, minute via email, riassunto intelligente. Tutto automatico. Tu scegli cosa attivare.
-            </p>
+            <h3 class="feature-title">Universal compatibility</h3>
+            <p class="feature-description">Works with any meeting tool. No bots, no integration needed.</p>
           </div>
+
         </div>
       </div>
     </section>
 
-    <!-- BENEFITS SECTION -->
-    <section class="benefits">
-      <div class="container">
-        <h2 class="section-title">Perché usare OneButton</h2>
-        <p class="section-subtitle">Progettato per chi ha troppe riunioni e troppo poco tempo.</p>
+    <!-- USE CASES SECTION -->
+    <section class="use-cases">
+      <div class="section-container">
+        <h2 class="section-title">Who it's for</h2>
+        <div class="use-cases-grid">
 
-        <div class="benefits-grid">
-          <div class="benefit-card">
-            <div class="benefit-number">01</div>
-            <h3 class="benefit-title">Zero configurazione</h3>
-            <p class="benefit-description">
-              Niente menu complicati. Niente impostazioni da capire. Apri l'app, premi un pulsante, parla. OneButton fa tutto il resto.
-            </p>
+          <div class="use-case-card">
+            <div class="use-case-icon">💼</div>
+            <h3 class="use-case-title">Freelancers</h3>
+            <p class="use-case-description">Capture every client detail without missing the conversation flow.</p>
           </div>
 
-          <div class="benefit-card">
-            <div class="benefit-number">02</div>
-            <h3 class="benefit-title">Trascrizione istantanea</h3>
-            <p class="benefit-description">
-              Non aspetti la fine. Vedi la trascrizione comparire in tempo reale. Diarizzata per speaker. Sempre precisa.
-            </p>
+          <div class="use-case-card">
+            <div class="use-case-icon">🌐</div>
+            <h3 class="use-case-title">Remote teams</h3>
+            <p class="use-case-description">Keep everyone aligned with automatic meeting documentation.</p>
           </div>
 
-          <div class="benefit-card">
-            <div class="benefit-number">03</div>
-            <h3 class="benefit-title">Zero appunti manuali</h3>
-            <p class="benefit-description">
-              Niente più blocco note, niente più riascoltare registrazioni. Tutto catturato automaticamente mentre parli.
-            </p>
+          <div class="use-case-card">
+            <div class="use-case-icon">🎯</div>
+            <h3 class="use-case-title">Consultants</h3>
+            <p class="use-case-description">Build better proposals with accurate notes from discovery calls.</p>
           </div>
 
-          <div class="benefit-card">
-            <div class="benefit-number">04</div>
-            <h3 class="benefit-title">Più tempo per parlare</h3>
-            <p class="benefit-description">
-              Concentrati sulla conversazione. OneButton pensa a catturare ogni parola, ogni decisione, ogni task.
-            </p>
+          <div class="use-case-card">
+            <div class="use-case-icon">📚</div>
+            <h3 class="use-case-title">Students & researchers</h3>
+            <p class="use-case-description">Focus on learning and discussion, not frantic note-taking.</p>
           </div>
+
         </div>
       </div>
     </section>
 
-    <!-- SOCIAL PROOF / CREDIBILITY -->
-    <section class="social-proof">
-      <div class="container">
-        <p class="proof-text">
-          Pensato per <strong>product manager, team lead e founder</strong> che passano la giornata in call.
-        </p>
-        <p class="proof-subtext">
-          "Costruito da sviluppatori che odiavano prendere appunti durante le riunioni. <br class="hide-mobile">
-          Ora lavoriamo meglio. E anche tu puoi farlo."
-        </p>
+    <!-- WHY IT'S DIFFERENT SECTION -->
+    <section class="why-different">
+      <div class="section-container">
+        <h2 class="section-title">Why OneButton is different</h2>
+        <ul class="why-list">
+          <li>
+            <span class="why-bullet">→</span>
+            <span class="why-text">No bots in Zoom, Meet or Teams</span>
+          </li>
+          <li>
+            <span class="why-bullet">→</span>
+            <span class="why-text">Works everywhere – just your device's microphone</span>
+          </li>
+          <li>
+            <span class="why-bullet">→</span>
+            <span class="why-text">Zero setup, zero friction</span>
+          </li>
+          <li>
+            <span class="why-bullet">→</span>
+            <span class="why-text">Instant summaries & action items</span>
+          </li>
+        </ul>
       </div>
     </section>
 
-    <!-- WAITLIST / CTA SECTION -->
-    <section id="waitlist" class="waitlist-section">
-      <div class="container-narrow">
-        <h2 class="waitlist-title">Unisciti alla lista d'attesa</h2>
-        <p class="waitlist-subtitle">
-          Ricevi accesso anticipato a OneButton e scopri per primo come funziona. <br>
-          <strong>Le prime 100 persone ricevono 6 mesi gratis.</strong>
-        </p>
+    <!-- ROADMAP SECTION -->
+    <section class="roadmap">
+      <div class="section-container">
+        <h2 class="section-title">Roadmap</h2>
+        <div class="roadmap-timeline">
 
-        <form class="waitlist-form" onsubmit="joinWaitlist(event)">
+          <div class="roadmap-item">
+            <div class="roadmap-quarter">Q1</div>
+            <div class="roadmap-milestone">Private beta</div>
+          </div>
+
+          <div class="roadmap-item">
+            <div class="roadmap-quarter">Q2</div>
+            <div class="roadmap-milestone">v1 launch</div>
+          </div>
+
+          <div class="roadmap-item">
+            <div class="roadmap-quarter">Q3</div>
+            <div class="roadmap-milestone">AI improved summaries</div>
+          </div>
+
+          <div class="roadmap-item">
+            <div class="roadmap-quarter">Q4</div>
+            <div class="roadmap-milestone">Teams & shared workspaces</div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- WAITLIST SECTION -->
+    <section id="waitlist" class="waitlist">
+      <div class="section-container-narrow">
+        <h2 class="section-title">Join the waitlist</h2>
+        <p class="waitlist-subtitle">Be among the first to use OneButton.</p>
+
+        <form class="waitlist-form" id="waitlistForm">
           <input
             type="email"
             id="emailInput"
             class="email-input"
-            placeholder="La tua email"
+            placeholder="your@email.com"
             required
-            aria-label="Indirizzo email"
-          />
-          <button type="submit" class="btn btn-primary btn-submit">
-            Iscriviti ora
-          </button>
+            aria-label="Email address"
+          >
+          <button type="submit" class="submit-btn">Join waitlist</button>
         </form>
 
-        <p id="feedback" class="feedback" role="status" aria-live="polite"></p>
-
-        <p class="waitlist-disclaimer">
-          Niente spam. Solo aggiornamenti sul lancio. Puoi cancellarti quando vuoi.
-        </p>
+        <div id="feedback" class="feedback" role="status" aria-live="polite"></div>
       </div>
     </section>
+
+    <!-- FINAL CTA SECTION -->
+    <section class="final-cta">
+      <div class="section-container">
+        <h2 class="section-title">Your meetings, simplified.</h2>
+        <button class="cta-btn" onclick="scrollToWaitlist()">Join the waitlist</button>
+      </div>
+    </section>
+
   </main>
 
   <!-- FOOTER -->
   <footer class="footer">
-    <div class="container">
-      <div class="footer-content">
-        <p class="footer-brand">&copy; 2025 OneButton by Humanaise</p>
-        <div class="footer-links">
-          <a href="#" class="footer-link">Privacy</a>
-          <a href="#" class="footer-link">Termini</a>
-          <a href="mailto:hello@onebutton.app" class="footer-link">Contatti</a>
-        </div>
-      </div>
+    <div class="footer-container">
+      <p class="footer-text">© 2025 OneButton – All rights reserved.</p>
     </div>
   </footer>
 
