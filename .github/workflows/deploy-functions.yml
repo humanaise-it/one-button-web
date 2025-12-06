@@ -25,7 +25,19 @@ jobs:
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
         run: supabase link --project-ref ${{ secrets.SUPABASE_PROJECT_ID }}
 
-      - name: Deploy Waitlist Function
-        env:
-          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
-        run: supabase functions deploy join_waitlist --project-ref ${{ secrets.SUPABASE_PROJECT_ID }}
+      - name: Deploy functions (webhook no-verify-jwt)
+        run: |
+          echo "Deploying Supabase functions. 'webhook' will use --no-verify-jwt"
+          for fn in supabase/functions/*; do
+            if [ -d "$fn" ]; then
+              name=$(basename "$fn")
+              if [ "$name" = "webhook" ] || [ "$name" = "join_waitlist" ]; then
+                echo "-> Deploying function: $name (no-verify-jwt)"
+                supabase functions deploy "$name" --no-verify-jwt
+              else
+                echo "-> Deploying function: $name"
+                supabase functions deploy "$name"
+              fi
+            fi
+          done
+
