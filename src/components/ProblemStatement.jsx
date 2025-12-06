@@ -5,7 +5,7 @@ function ProblemStatement() {
     <section className="problem-statement">
       <div className="section-container">
         <h2 className="large-statement">
-          Meetings steal focus.<br />Notes steal time.<br />Automation gives time back...<br />...but it all starts with listening.
+          Meetings steal focus.<br />Notes steal time.<br /><p className=" fade-in">Automation gives time back...<br />...but it all starts with listening.</p
         </h2>
       </div>
     </section>
