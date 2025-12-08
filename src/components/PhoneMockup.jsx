@@ -296,7 +296,7 @@ function PhoneMockup() {
               <div className="visionos-toast">
                 <div className="visionos-toast-content">
                   <div className="visionos-toast-title">Meeting processed</div>
-                  <div className="visionos-toast-desc">Your summary is being generated…</div>
+                  <div className="visionos-toast-desc">Summarizing...</div>
                 </div>
               </div>
             )}
